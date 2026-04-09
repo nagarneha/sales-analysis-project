@@ -22,4 +22,20 @@ FROM (
     SELECT * FROM sales_2025
 ) AS combined_sales
 GROUP BY ProductID;
-sss
+
+
+
+
+-- Top 5 products by quantity
+SELECT ProductID, SUM(Quantity) AS TotalQuantity
+FROM (
+    SELECT * FROM sales_2024
+    UNION ALL
+    SELECT * FROM sales_2025
+) AS combined_sales
+GROUP BY ProductID
+ORDER BY TotalQuantity DESC
+LIMIT 5;
+
+
+ss
