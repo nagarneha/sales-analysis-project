@@ -2,7 +2,7 @@ SHOW DATABASES;
 USE sales_project;
 SHOW TABLES;
 
-------- Sales nlysis for 2024
+------- Sales anlysis for 2024
 SELECT * FROM sales_2024 LIMIT 10;
 SELECT ProductID, SUM(Quantity) AS TotalQuantity
 FROM sales_2024
@@ -14,7 +14,8 @@ SELECT ProductID, SUM(Quantity) AS TotalQuantity
 FROM sales_2025
 GROUP BY ProductID;
 
--- Combined sales analysis for 2024 and 2025
+
+-----  Combined sales analysis for 2024 and 2025
 SELECT ProductID, SUM(Quantity) AS TotalQuantity
 FROM (
     SELECT * FROM sales_2024
@@ -24,9 +25,7 @@ FROM (
 GROUP BY ProductID;
 
 
-
-
--- Top 5 products by quantity
+-----  Top 5 products by quantity
 SELECT ProductID, SUM(Quantity) AS TotalQuantity
 FROM (
     SELECT * FROM sales_2024
@@ -38,4 +37,22 @@ ORDER BY TotalQuantity DESC
 LIMIT 5;
 
 
-ss
+
+-- 2️⃣ Total Revenue nikaalo
+SELECT SUM(Quantity * UnitPrice) AS total_revenue
+FROM Sales_2024;
+
+
+
+-- 5️⃣ Product-wise total sales
+select ProductID, sum( Quantity * UnitPrice) as Total_Sales
+from sales_2025
+group by ProductID;
+
+
+
+-- 6️⃣ Store-wise revenue
+select StoreID, sum(Quantity * UnitPrice) as Totalrevenue
+from sales_2024
+group by StoreID;
+
