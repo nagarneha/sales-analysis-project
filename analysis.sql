@@ -56,3 +56,17 @@ select StoreID, sum(Quantity * UnitPrice) as Totalrevenue
 from sales_2024
 group by StoreID;
 
+
+
+-- 7️⃣ Top 5 customers (highest spending)
+select CustomerID, sum(Quantity * UnitPrice) as Highest_Spending
+from sales_2025
+group by CustomerID 
+order by Highest_Spending desc limit 5;
+
+
+-- 🎯: Daily Sales Trend
+select Date , sum(Quantity * UnitPrice) as DailySales
+from sales_2025
+group by Date
+order by Date;   
