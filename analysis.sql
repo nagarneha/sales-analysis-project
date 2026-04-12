@@ -70,3 +70,24 @@ select Date , sum(Quantity * UnitPrice) as DailySales
 from sales_2025
 group by Date
 order by Date;   
+
+
+-- 9️⃣ Sabse zyada bikne wala product
+select ProductID, sum(Quantity) as Highest_Quantity
+from sales_2025
+group by ProductID
+order by Highest_Quantity desc 
+limit 1;
+
+
+--  🔟 Highest revenue wala product 
+select ProductID, sum(Quantity * UnitPrice) as Highest_revenue
+from sales_2025
+group by ProductID
+order by Highest_revenue desc 
+limit 3;  
+
+
+
+
+
