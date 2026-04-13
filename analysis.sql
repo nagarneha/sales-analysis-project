@@ -88,6 +88,38 @@ order by Highest_revenue desc
 limit 3;  
 
 
+-- Monthly sales trend
+select month(date) as Month,  sum(Quantity * UnitPrice) as Monthly_Sales
+from sales_2025
+group by Month
+order by Monthly_Sales desc;
 
+
+-- Reapet Customer Name
+SELECT 
+    CustomerID,
+    COUNT(*) AS total_orders,
+    CASE 
+        WHEN COUNT(*) = 1 THEN 'New Customer'
+        ELSE 'Repeat Customer'
+    END AS customer_type
+FROM sales_2024
+GROUP BY CustomerID; 
+
+
+
+-- 1️⃣3️⃣ Top product in each store
+
+SELECT *
+FROM (
+    SELECT 
+        StoreID,
+        ProductID,
+        SUM(Quantity * UnitPrice) AS revenue,
+        ROW_NUMBER() OVER (PARTITION BY StoreID ORDER BY SUM(Quantity * UnitPrice) DESC) AS row_num
+    FROM sales_2025
+    GROUP BY StoreID, ProductID
+) t
+WHERE row_num = 1;s
 
 
