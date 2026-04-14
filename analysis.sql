@@ -120,6 +120,33 @@ FROM (
     FROM sales_2025
     GROUP BY StoreID, ProductID
 ) t
-WHERE row_num = 1;s
+WHERE row_num = 1; 
+
+
+
+-- 👉 Total number of orders (sales) count karo
+ select count(*) from sales_2024;
+
+
+
+
+-- 🧠 Q2: Most sold product
+select ProductID, sum(Quantity) as total_quantity
+from sales_2025
+group by ProductID order by total_quantity desc limit 1;
+
+
+-- 🧠 Q3: Last purchase date per customer
+select CustomerID, max(Date) as Latest_Purchase_Date
+ from sales_2024
+ group by CustomerID;
+
+
+
+ -- 🧠 Q4: Har store ka total revenue
+select StoreID, sum(Quantity * UnitPrice) as total_revenue
+from sales_2024
+group by StoreID
+ORDER BY total_revenue DESC; sssss
 
 
