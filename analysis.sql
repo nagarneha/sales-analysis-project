@@ -147,6 +147,67 @@ select CustomerID, max(Date) as Latest_Purchase_Date
 select StoreID, sum(Quantity * UnitPrice) as total_revenue
 from sales_2024
 group by StoreID
-ORDER BY total_revenue DESC; sssss
+ORDER BY total_revenue DESC; 
+
+
+
+--  Har store ka highest revenue generating product find karo
+
+select * from (
+select
+StoreID, ProductID, sum(Quantity * UnitPrice) as total_revenue,
+        ROW_NUMBER() OVER (PARTITION BY StoreID ORDER BY 
+        SUM(Quantity * UnitPrice) DESC) AS row_num
+        from sales_2025
+        group by StoreID, ProductID)t
+        WHERE row_num = 1;
+        
+        
+
+    
+--  👉 Find those customers jinhone har saal (2024 & 2025 dono me) purchase kiya hai  
+        select distinct s24.CustomerID from sales_2024 s24 
+inner join sales_2025 s25 on s24.CustomerID = s25.CustomerID;
+
+
+-- Find total revenue per customer.        
+select CustomerID,  sum(Quantity * UnitPrice) as total_revenue
+from sales_2025
+group by CustomerID
+order by total_revenue desc;
+
+
+-- 👉 Find top 3 customers by total revenue
+
+select CustomerID,  sum(Quantity * UnitPrice) as top_Customer
+from sales_2025
+group by CustomerID
+order by top_Customer desc
+limit 3;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
