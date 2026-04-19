@@ -190,6 +190,77 @@ limit 3;
 
 
 
+-- 👉 Find customers jinka total revenue average revenue se zyada hai
+
+SELECT 
+    CustomerID,
+    SUM(Quantity * UnitPrice) AS total_revenue
+FROM sales_2025
+GROUP BY CustomerID
+HAVING SUM(Quantity * UnitPrice) > (
+    SELECT AVG(total_rev)
+    FROM (
+        SELECT SUM(Quantity * UnitPrice) AS total_rev
+        FROM sales_2025
+        GROUP BY CustomerID
+    ) t
+);
+
+-- 👉 Products jinka total sales > average sales
+select
+    ProductID, 
+    sum(Quantity * UnitPrice) as total_sales
+from sales_2025
+group by ProductID
+having sum(Quantity * UnitPrice) > (
+    select avg(total_sales)
+    from (
+         select sum(Quantity * UnitPrice) as total_sales 
+         from sales_2025
+		group by ProductID
+     )t
+);*/
+
+-- 👉 Stores jinka revenue < average revenue
+/*select 
+    StoreID, 
+    sum(Quantity * UnitPrice) as total_sales
+from sales_2024
+group by StoreID
+having sum(Quantity * UnitPrice) < (
+    select avg(total_sales)
+    from(
+		select sum(Quantity * UnitPrice) as total_sales
+		 from sales_2024
+         group by StoreID
+    )t
+);
+
+ 
+select sum(Quantity * UnitPrice) as total_rev
+from (
+select Quantity , UnitPrice
+from sales_2025
+union all
+select Quantity , UnitPrice 
+from sales_2025)t;
+
+
+select 
+    (select sum(Quantity * UnitPrice) from sales_2024) +
+    (select sum(Quantity * UnitPrice) from sales_2025) 
+    as total_rev;*/
+
+
+-- 👉 Customer jo 2024 aur 2025 dono me aaye (common customers)
+
+-- select distinct s24.CustomerID
+-- from sales_2024 s24
+-- inner join sales_2025 s25
+-- on s24.CustomerID = s25.CustomerID;
+
+
+
 
 
 
